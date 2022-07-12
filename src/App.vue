@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderComponent @getInputApi="inputApi"/>
-    <MainComponent :finalUrl="finalUrl" />
+    <MainComponent :arrayResult="arrayResult" />
   </div>
 </template>
 
