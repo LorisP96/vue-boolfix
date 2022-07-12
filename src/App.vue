@@ -45,6 +45,7 @@ export default {
         })
       } else {
         this.arrayFilmResult = [];
+        this.arrayTvResult = [];
       }
     },
   },
