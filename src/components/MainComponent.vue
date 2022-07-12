@@ -1,9 +1,11 @@
 <template>
   <main>
     <div class="card-container">
+
+      <h2 class="categories">Film</h2>
       <div class="card" v-for="card, index in arrayFilmResult" :key="'a' + index">
         <div class="info-card">
-          <h2>{{card.title}}</h2>
+          <h3>{{card.title}}</h3>
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(card.original_language)" alt="">
           <div class="vote">
             <span>media voti: {{card.vote_average}}</span>
@@ -13,9 +15,11 @@
         </div>
         <img :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
       </div>
-      <div class="card" v-for="cardtv, index in arrayTvResult" :key="'b' + index">
+
+      <h2 class="categories">Serie TV</h2>
+      <div class="card" v-for="cardtv, index in arrayTvResult" :key="'b' + index"> 
         <div class="info-card">
-          <h2>{{cardtv.name}}</h2>
+          <h3>{{cardtv.name}}</h3>
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(cardtv.original_language)" alt="">
           <div class="vote">
             <span>media voti: {{cardtv.vote_average}}</span>
@@ -64,7 +68,12 @@ export default {
   flex-wrap: wrap;
   width: calc(100% - 80px);
   margin: 0 auto;
-  padding-top: 40px;
+
+  .categories {
+      width: 100%;
+      margin: 40px 0;
+    font-size: 30px;
+    }
 
   .card {
     width: calc((100% / 6) - 10px);
