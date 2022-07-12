@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="card-container">
-      <div class="card" v-for="card, index in arrayResult" :key="index">
+      <div class="card" v-for="card, index in arrayFilmResult" :key="'a' + index">
         <div class="info-card">
           <h2>{{card.title}}</h2>
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(card.original_language)" alt="">
@@ -13,6 +13,18 @@
         </div>
         <img :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
       </div>
+      <div class="card" v-for="cardtv, index in arrayTvResult" :key="'b' + index">
+        <div class="info-card">
+          <h2>{{cardtv.name}}</h2>
+          <img :src="'https://countryflagsapi.com/svg/' + fixFlag(cardtv.original_language)" alt="">
+          <div class="vote">
+            <span>media voti: {{cardtv.vote_average}}</span>
+            <span>numero di recensioni: {{cardtv.vote_count}}</span>
+          </div>
+          <div class="original-text">{{cardtv.original_name}}</div>
+        </div>
+        <img :src="'https://image.tmdb.org/t/p/w342' + cardtv.poster_path" :alt="cardtv.name">
+      </div>
     </div>
   </main>
 </template>
@@ -22,7 +34,8 @@
 export default {
   name: 'MainComponent',
   props: {
-    arrayResult: Array,
+    arrayFilmResult: Array,
+    arrayTvResult: Array,
   },
   methods: {
     fixFlag(flag) {
@@ -52,11 +65,13 @@ export default {
   width: calc(100% - 80px);
   margin: 0 auto;
   padding-top: 40px;
+
   .card {
     width: calc((100% / 6) - 10px);
     margin: 5px;
     aspect-ratio: 2/3;
     position: relative;
+
     img {
       display: block;
       width: 100%;
@@ -64,6 +79,7 @@ export default {
       object-fit: cover;
       object-position: center;
     }
+
     .info-card {
       color: white;
       position: absolute;
@@ -78,12 +94,19 @@ export default {
         font-size: 14px;
         margin: 10px 0;
       }
+
       img {
         width: 30px;
-        aspect-ratio: 3/2;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
         height: auto;
         margin: 10px 0;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        border: 3px solid white;
       }
+
       .vote {
         font-size: 10px;
         display: flex;

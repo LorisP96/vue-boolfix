@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderComponent @getInputApi="inputApi"/>
-    <MainComponent :arrayResult="arrayResult" />
+    <MainComponent :arrayFilmResult="arrayFilmResult" :arrayTvResult="arrayTvResult" />
   </div>
 </template>
 
@@ -18,9 +18,10 @@ export default {
       finalText: '',
       urlFilm: 'https://api.themoviedb.org/3/search/movie?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT&query=',
       finalFilmUrl: '',
-      arrayResult: [],
+      arrayFilmResult: [],
       urlTv: 'https://api.themoviedb.org/3/search/tv?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT&query=',
       finalTvUrl: '',
+      arrayTvResult: [],
     }
   },
   components: {
@@ -35,15 +36,15 @@ export default {
       if(this.finalText !== '') {
         axios.get(this.finalFilmUrl)
         .then((response) => {
-          this.arrayResult = response.data.results;
+          this.arrayFilmResult = response.data.results;
         });
         axios.get(this.finalTvUrl)
         .then((response) => {
-          this.arrayResult = response.data.results;
-          console.log(this.arrayResult)
+          this.arrayTvResult = response.data.results;
+          console.log(this.arrayTvResult)
         })
       } else {
-        this.arrayResult = [];
+        this.arrayFilmResult = [];
       }
     },
   },
