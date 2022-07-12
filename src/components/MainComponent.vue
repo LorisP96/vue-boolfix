@@ -4,14 +4,14 @@
       <div class="card" v-for="card, index in arrayResult" :key="index">
         <div class="info-card">
           <h2>{{card.title}}</h2>
-          <div>{{card.original_title}}</div>
-          <div>{{card.original_language}}</div>
+          <div>{{card.original_title}}{{card.original_language}}</div>
+          <img :src="'https://countryflagsapi.com/svg/' + fixFlag(card.original_language)" alt="">
           <div class="vote">
-            <span>{{card.vote_average}}</span>
-            <span>{{card.vote_count}}</span>
+            <span>media voti: {{card.vote_average}}</span>
+            <span>numero di recensioni: {{card.vote_count}}</span>
           </div>
         </div>
-        <img :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" alt="">
+        <img :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
       </div>
     </div>
   </main>
@@ -24,14 +24,25 @@ export default {
   props: {
     arrayResult: Array,
   },
-  data() {
-    return {
-    }
-  },
   methods: {
-    
-  },
+    fixFlag(flag) {
+      if(flag == 'en'){
+        return flag = "gb";
+      } else if(flag == 'ja'){
+        return flag = "jp";       
+      } else if(flag == 'hi'){
+        return flag = "in";      
+      } else if(flag == 'cs'){
+        return flag = "cz";       
+      } else if(flag == 'ko'){
+        return flag = "kr";       
+      } else if(flag == 'sv'){
+        return flag = "ch";       
+      } return flag
+    }
+  }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -44,12 +55,13 @@ export default {
   .card {
     width: calc((100% / 6) - 10px);
     margin: 5px;
-    aspect-ratio: 3/4;
+    aspect-ratio: 2/3;
     position: relative;
     img {
       display: block;
       width: 100%;
-      aspect-ratio: 3/4;
+      height: 100%;
+      object-fit: cover;
       object-position: center;
     }
     .info-card {
@@ -61,8 +73,16 @@ export default {
       bottom: 0;
       opacity: 0;
       padding: 20px;
+      img {
+        width: 30px;
+        aspect-ratio: 3/2;
+        height: auto;
+        margin: 10px 0;
+      }
       .vote {
+        font-size: 10px;
         display: flex;
+        justify-content: space-between;
       }
     }
     &:hover .info-card {
