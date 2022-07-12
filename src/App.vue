@@ -29,11 +29,15 @@ export default {
     inputApi(searchText) {
       this.finalText = searchText.split(' ').join('+');
       this.finalUrl = this.url + this.finalText;
-      axios.get(this.finalUrl)
-      .then((response) => {
-        this.arrayResult = response.data.results;
-        console.log(this.arrayResult)
-      })
+      if(this.finalText !== '') {
+        axios.get(this.finalUrl)
+        .then((response) => {
+          this.arrayResult = response.data.results;
+          console.log(this.arrayResult)
+        })
+      } else {
+        this.arrayResult = [];
+      }
     },
   },
 }
