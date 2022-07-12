@@ -16,9 +16,11 @@ export default {
     return {
       searchText: '',
       finalText: '',
-      url: 'https://api.themoviedb.org/3/search/movie?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT&query=',
-      finalUrl: '',
+      urlFilm: 'https://api.themoviedb.org/3/search/movie?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT&query=',
+      finalFilmUrl: '',
       arrayResult: [],
+      urlTv: 'https://api.themoviedb.org/3/search/tv?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT&query=',
+      finalTvUrl: '',
     }
   },
   components: {
@@ -28,9 +30,14 @@ export default {
   methods: {
     inputApi(searchText) {
       this.finalText = searchText.split(' ').join('+');
-      this.finalUrl = this.url + this.finalText;
+      this.finalFilmUrl = this.urlFilm + this.finalText;
+      this.finalTvUrl = this.urlTv + this.finalText;
       if(this.finalText !== '') {
-        axios.get(this.finalUrl)
+        axios.get(this.finalFilmUrl)
+        .then((response) => {
+          this.arrayResult = response.data.results;
+        });
+        axios.get(this.finalTvUrl)
         .then((response) => {
           this.arrayResult = response.data.results;
           console.log(this.arrayResult)

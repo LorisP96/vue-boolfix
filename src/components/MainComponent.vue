@@ -4,12 +4,12 @@
       <div class="card" v-for="card, index in arrayResult" :key="index">
         <div class="info-card">
           <h2>{{card.title}}</h2>
-          <div>{{card.original_title}}{{card.original_language}}</div>
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(card.original_language)" alt="">
           <div class="vote">
             <span>media voti: {{card.vote_average}}</span>
             <span>numero di recensioni: {{card.vote_count}}</span>
           </div>
+          <div class="original-text">{{card.original_title}}</div>
         </div>
         <img :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
       </div>
@@ -73,6 +73,11 @@ export default {
       bottom: 0;
       opacity: 0;
       padding: 20px;
+      overflow-y: auto;
+      .original-text {
+        font-size: 14px;
+        margin: 10px 0;
+      }
       img {
         width: 30px;
         aspect-ratio: 3/2;
