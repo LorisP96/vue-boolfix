@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <HeaderComponent @getInputApi="inputApi"/>
-    <MainComponent/>
+    <MainComponent :finalUrl="finalUrl" />
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import HeaderComponent from './components/HeaderComponent.vue';
 import MainComponent from './components/MainComponent.vue';
 
@@ -13,10 +14,11 @@ export default {
   name: 'App',
   data() {
     return {
-      searchedText: '',
+      searchText: '',
       finalText: '',
       url: 'https://api.themoviedb.org/3/search/movie?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT&query=',
       finalUrl: '',
+      arrayResult: [],
     }
   },
   components: {
@@ -25,10 +27,13 @@ export default {
   },
   methods: {
     inputApi(searchText) {
-      this.searchedText = searchText.toLowerCase();
-      this.finalText = this.searchedText.split(' ').join('+');
+      this.finalText = searchText.split(' ').join('+');
       this.finalUrl = this.url + this.finalText;
-      console.log(this.finalUrl)
+      axios.get(this.finalUrl)
+      .then((response) => {
+        this.arrayResult = response.data.results;
+        console.log(this.arrayResult)
+      })
     },
   },
 }

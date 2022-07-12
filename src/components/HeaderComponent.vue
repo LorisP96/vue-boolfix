@@ -3,7 +3,7 @@
     <div class="header-container">
       <img src="https://www.roadtvitalia.it/wp-content/uploads/2018/10/Netflix-1.jpg" alt="">
       <div class="input">
-        <input v-model="getUserInput" type="text" placeholder="Cerca un film o serie TV" >
+        <input v-model="getUserInput" type="text" placeholder="Cerca un film o serie TV" @keyup.enter="$emit('getInputApi', getUserInput)">
         <button  @click="$emit('getInputApi', getUserInput)">Cerca</button>
       </div> 
     </div>

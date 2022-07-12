@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 
 export default {
   name: 'MainComponent',
@@ -21,12 +20,6 @@ export default {
   methods: {
     
   },
-  // mounted() {
-  //   axios.get()
-  //   .then(response => {
-  //       console.log(response.data)
-  //   })
-  // }
 }
 </script>
 
