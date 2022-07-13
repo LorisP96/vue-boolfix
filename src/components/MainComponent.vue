@@ -4,7 +4,6 @@
     <h2 class="categories">Film</h2>
     <div class="card-container">
       
-      
       <div class="card" v-for="card, index in arrayFilmResult" :key="'a' + index">
         <div class="info-card">
           <h3>{{card.title}}</h3>
@@ -16,13 +15,13 @@
           </div>
           <div class="original-text">{{card.overview}}</div>
         </div>
-        <img :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
+        <img v-if="card.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
+        <img v-else src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOvaNmJGJ0BCxEpCqAVKnhVAE8T6IPNODaw&usqp=CAU" :alt="card.title">
       </div>
     </div>
 
     <h2 class="categories">Serie TV</h2>
     <div class="card-container">
-
       
       <div class="card" v-for="cardtv, index in arrayTvResult" :key="'b' + index"> 
         <div class="info-card">
@@ -35,7 +34,8 @@
           </div>
           <div class="original-text">{{cardtv.overview}}</div>
         </div>
-        <img :src="'https://image.tmdb.org/t/p/w342' + cardtv.poster_path" :alt="cardtv.name">
+        <img v-if="cardtv.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + cardtv.poster_path" :alt="cardtv.name">
+        <img v-else src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOvaNmJGJ0BCxEpCqAVKnhVAE8T6IPNODaw&usqp=CAU" :alt="cardtv.name">
       </div>
     </div>
   </main>
@@ -65,6 +65,8 @@ export default {
         return flag = "cz";       
       } else if(flag == 'ko'){
         return flag = "kr";       
+      } else if(flag == 'fa'){
+        return flag = "ir";
       } else if(flag == 'sv'){
         return flag = "ch";       
       } return flag
@@ -82,32 +84,34 @@ export default {
 main {
   height: calc(100vh - 70px);
   .categories {
-    padding: 20px 40px;
+    color: white;
+    padding: 15px 40px;
     font-size: 28px;
   }
   .card-container {
     display: flex;
     width: calc(100% - 80px);
-    margin: 0 auto;
-    height: calc(50% - 72px);
+    margin: auto;
+    height: calc(50% - 67px);
     overflow-x: auto;
+    margin-bottom: 5px;
 
     /* total width */
     &::-webkit-scrollbar {
-        background-color: #434343;
-        width: 16px;
-        height: 5px;
+      background-color: #434343;
+      width: 16px;
+      height: 8px;
     }
 
     /* background of the scrollbar except button or resizer */
     &::-webkit-scrollbar-track {
-        background-color:#2e2e2e81;
+      background-color:#2e2e2e81;
     }
 
     /* scrollbar itself */
     &::-webkit-scrollbar-thumb {
-        background-color: #babac0;
-        border-radius: 16px;
+      background-color: #babac0;
+      border-radius: 16px;
     }
 
     /* set button(top and bottom of the scrollbar) */
@@ -116,7 +120,7 @@ main {
     }
 
     .card {
-      width: calc((100% / 7) - 6px);
+      aspect-ratio: 2/3;
       margin: 3px;
       position: relative;
       flex-shrink: 0;
@@ -136,7 +140,7 @@ main {
         left: 0;
         bottom: 0;
         opacity: 0;
-        padding: 20px;
+        padding: 20px 30px;
         overflow-y: auto;
 
         &::-webkit-scrollbar {
