@@ -116,7 +116,7 @@ main {
     }
 
     .card {
-      width: calc((100% / 6) - 6px);
+      width: calc((100% / 7) - 6px);
       margin: 3px;
       position: relative;
       flex-shrink: 0;
@@ -197,4 +197,3 @@ main {
   }
 }
 </style>
-<!-- TEST -->
