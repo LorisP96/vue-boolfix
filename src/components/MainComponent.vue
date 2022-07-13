@@ -14,6 +14,10 @@
             <div>numero di recensioni: {{card.vote_count}}</div>
           </div>
           <div class="original-text">{{card.overview}}</div>
+          <div v-if="card.title !== card.original_title">{{card.original_title}}</div>
+          <!-- <div v-if="actorArray.length === 5">
+            <div v-for="element, index in getApitest(card.id)" :key="'d' + index">{{element}}</div>
+          </div> -->
         </div>
         <img v-if="card.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
         <img v-else src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOvaNmJGJ0BCxEpCqAVKnhVAE8T6IPNODaw&usqp=CAU" :alt="card.title">
@@ -33,6 +37,7 @@
             <div>numero di recensioni: {{cardtv.vote_count}}</div>
           </div>
           <div class="original-text">{{cardtv.overview}}</div>
+          <div v-if="cardtv.name !== cardtv.original_name">{{cardtv.original_name}}</div>
         </div>
         <img v-if="cardtv.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + cardtv.poster_path" :alt="cardtv.name">
         <img v-else src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOvaNmJGJ0BCxEpCqAVKnhVAE8T6IPNODaw&usqp=CAU" :alt="cardtv.name">
@@ -42,6 +47,7 @@
 </template>
 
 <script>
+// import axios from 'axios'
 
 export default {
   name: 'MainComponent',
@@ -51,6 +57,10 @@ export default {
   },
   data() {
     return {
+      test1: 'https://api.themoviedb.org/3/movie/',
+      test2: '/credits?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT',
+      apiTest: '',
+      actorArray: [],
     }
   },
   methods: {
@@ -73,7 +83,19 @@ export default {
     },
     fixStar(star) {
       return Math.round(star / 2);
-    }
+    },
+    // getApitest(elementid) {
+    //   this.apiTest = this.test1 + elementid + this.test2;
+    //   this.actorArray = [];
+    //   axios.get(this.apiTest)
+    //   .then(response => {
+        
+    //     for (let i = 0; i < 5; i++) {
+    //       this.actorArray.push(response.data.cast[i].name);
+    //     }
+    //     return this.actorArray
+    //   })
+    // }
   },
 
 }
@@ -91,7 +113,7 @@ main {
   .card-container {
     display: flex;
     width: calc(100% - 80px);
-    margin: auto;
+    margin: 0 auto;
     height: calc(50% - 67px);
     overflow-x: auto;
     margin-bottom: 5px;
@@ -110,7 +132,7 @@ main {
 
     /* scrollbar itself */
     &::-webkit-scrollbar-thumb {
-      background-color: #babac0;
+      background-color: #a4a4a4;
       border-radius: 16px;
     }
 
@@ -121,7 +143,7 @@ main {
 
     .card {
       aspect-ratio: 2/3;
-      margin: 3px;
+      margin: 7px;
       position: relative;
       flex-shrink: 0;
 

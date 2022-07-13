@@ -24,7 +24,7 @@ export default {
 <style lang="scss" scoped>
 header {
   height: 70px;
-  background-color: black;
+  background-color: #0c0c0c;
   .header-container {
     height: 100%;
     display: flex;

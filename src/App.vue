@@ -41,7 +41,6 @@ export default {
         axios.get(this.finalTvUrl)
         .then((response) => {
           this.arrayTvResult = response.data.results;
-          console.log(this.arrayTvResult)
         })
       } else {
         this.arrayFilmResult = [];
