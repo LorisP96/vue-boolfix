@@ -12,7 +12,7 @@
           <div class="vote">
             <span class="gold" v-for="star, index in fixStar(card.vote_average)" :key="'c' + index"><i class="fa-solid fa-star"></i></span>
             <span v-for="star, index in (5 - fixStar(card.vote_average))" :key="'d' + index"><i class="fa-regular fa-star"></i></span>
-            <span>numero di recensioni: {{card.vote_count}}</span>
+            <div>numero di recensioni: {{card.vote_count}}</div>
           </div>
           <div class="original-text">{{card.overview}}</div>
         </div>
@@ -82,7 +82,6 @@ export default {
 main {
   height: calc(100vh - 70px);
   .categories {
-    width: 100%;
     padding: 20px 40px;
     font-size: 28px;
   }
@@ -92,6 +91,29 @@ main {
     margin: 0 auto;
     height: calc(50% - 72px);
     overflow-x: auto;
+
+    /* total width */
+    &::-webkit-scrollbar {
+        background-color: #434343;
+        width: 16px;
+        height: 5px;
+    }
+
+    /* background of the scrollbar except button or resizer */
+    &::-webkit-scrollbar-track {
+        background-color:#2e2e2e81;
+    }
+
+    /* scrollbar itself */
+    &::-webkit-scrollbar-thumb {
+        background-color: #babac0;
+        border-radius: 16px;
+    }
+
+    /* set button(top and bottom of the scrollbar) */
+    &::-webkit-scrollbar-button {
+        display:none;
+    }
 
     .card {
       width: calc((100% / 6) - 10px);
@@ -104,7 +126,6 @@ main {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center;
       }
 
       .info-card {
@@ -117,6 +138,26 @@ main {
         opacity: 0;
         padding: 20px;
         overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          background-color: #434343;
+          width: 5px;
+          height: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color:#2e2e2e81;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #babac0;
+          border-radius: 16px;
+        }
+
+        &::-webkit-scrollbar-button {
+          display:none;
+        }
+
         .original-text {
           font-size: 14px;
           margin: 10px 0;
@@ -135,7 +176,7 @@ main {
         }
 
         .vote {
-          font-size: 10px;
+          font-size: 13px;
           line-height: 20px;
           padding-top: 8px;
 
