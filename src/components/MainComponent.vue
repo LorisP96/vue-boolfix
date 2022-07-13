@@ -116,10 +116,10 @@ main {
     }
 
     .card {
-      width: calc((100% / 6) - 10px);
-      margin: 5px;
-      aspect-ratio: 2/3;
+      width: calc((100% / 6) - 6px);
+      margin: 3px;
       position: relative;
+      flex-shrink: 0;
 
       img {
         display: block;
