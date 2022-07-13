@@ -8,7 +8,8 @@
           <h3>{{card.title}}</h3>
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(card.original_language)" alt="">
           <div class="vote">
-            <span>media voti: {{card.vote_average}}</span>
+            <span class="gold" v-for="star, index in fixStar(card.vote_average)" :key="'c' + index"><i class="fa-solid fa-star"></i></span>
+            <span v-for="star, index in (5 - fixStar(card.vote_average))" :key="'d' + index"><i class="fa-regular fa-star"></i></span>
             <span>numero di recensioni: {{card.vote_count}}</span>
           </div>
           <div class="original-text">{{card.original_title}}</div>
@@ -22,8 +23,9 @@
           <h3>{{cardtv.name}}</h3>
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(cardtv.original_language)" alt="">
           <div class="vote">
-            <span>media voti: {{cardtv.vote_average}}</span>
-            <span>numero di recensioni: {{cardtv.vote_count}}</span>
+            <span class="gold" v-for="star, index in fixStar(cardtv.vote_average)" :key="'c' + index"><i class="fa-solid fa-star"></i></span>
+            <span v-for="star, index in (5 - fixStar(cardtv.vote_average))" :key="'d' + index"><i class="fa-regular fa-star"></i></span>
+            <div>numero di recensioni: {{cardtv.vote_count}}</div>
           </div>
           <div class="original-text">{{cardtv.original_name}}</div>
         </div>
@@ -41,6 +43,10 @@ export default {
     arrayFilmResult: Array,
     arrayTvResult: Array,
   },
+  data() {
+    return {
+    }
+  },
   methods: {
     fixFlag(flag) {
       if(flag == 'en'){
@@ -56,8 +62,12 @@ export default {
       } else if(flag == 'sv'){
         return flag = "ch";       
       } return flag
+    },
+    fixStar(star) {
+      return Math.round(star / 2);
     }
-  }
+  },
+
 }
 
 </script>
@@ -118,8 +128,16 @@ export default {
 
       .vote {
         font-size: 10px;
-        display: flex;
-        justify-content: space-between;
+        line-height: 20px;
+        padding-top: 8px;
+
+        .gold {
+          color: goldenrod;
+        }
+
+        span {
+          font-size: 16px;
+        }
       }
     }
     &:hover .info-card {
