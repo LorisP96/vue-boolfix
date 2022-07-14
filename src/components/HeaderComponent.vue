@@ -31,17 +31,21 @@ header {
   left: 0;
   right: 0;
   z-index: 1;
+  
   .header-container {
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     img {
       height: 100%;
     }
+
     .input {
       height: 50%;
       margin-right: 20px;
+      
       input {
         height: 80%;
         margin-right: 20px;
@@ -51,6 +55,7 @@ header {
         color: $text-color;
         padding: 0 10px;
       }
+
       button {
         width: 100px;
         height: 100%;
