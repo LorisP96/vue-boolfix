@@ -120,6 +120,8 @@ export default {
           
             this.actorArray.push(response.data.cast[i].name);
           }
+        } else {
+          this.actorArray.push('cast empty')
         }
         // [PRINT cerca in template (commenti) 'lista attori']
         return this.actorArray;
