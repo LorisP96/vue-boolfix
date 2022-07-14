@@ -1,12 +1,13 @@
 <template>
   <main>
+    <!-- FILM -->
+    <h2 class="categories" v-if="arrayTvResult.length !== 0">Film</h2>
 
-    <h2 class="categories">Film</h2>
     <div class="card-container">
       <!-- CARD -->
       <div class="card" v-for="card, index in arrayFilmResult" :key="'a' + index">
         <!-- elementi in hover di ogni singola card -->
-        <div class="info-card" @mouseenter="getApitest(card.id)">
+        <div class="info-card" @mouseenter="getActorArray(card.id)">
           <!-- titolo -->
           <h3>{{card.title}}</h3>
           <!-- lingua -->
@@ -31,7 +32,9 @@
       </div>
     </div>
 
-    <h2 class="categories">Serie TV</h2>
+    <!-- SERIE TV -->
+    <h2 class="categories" v-if="arrayTvResult.length !== 0">Serie TV</h2>
+
     <div class="card-container">
       <!-- CARD -->
       <div class="card" v-for="cardtv, index in arrayTvResult" :key="'b' + index"> 
@@ -74,13 +77,14 @@ export default {
   },
   data() {
     return {
-      test1: 'https://api.themoviedb.org/3/movie/',
-      test2: '/credits?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT',
-      apiTest: '',
+      actorApiStart: 'https://api.themoviedb.org/3/movie/',
+      actorApiEnd: '/credits?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT',
+      actorApi: '',
       actorArray: [],
     }
   },
   methods: {
+    // funzione per sostituire le iniziali della lingua [cerca in template (commenti) 'lingua']
     fixFlag(flag) {
       if(flag == 'en'){
         return flag = "gb";
@@ -98,21 +102,22 @@ export default {
         return flag = "ch";       
       } return flag
     },
-
+    // funzione per trasformare le valutazioni da 1/10 a 1/5 [cerca in template (commenti) 'recensioni']
     fixStar(star) {
       return Math.round(star / 2);
     },
-
-    getApitest(elementid) {
-      this.apiTest = this.test1 + elementid + this.test2;
+    // funzione per ottenere i nomi dei primi 5 attori, da un'altra API (vedi data)  
+    // [CALL cerca in template (commenti) 'elementi in hover di ogni singola card']
+    getActorArray(filmid) {
+      this.actorApi = this.actorApiStart + filmid + this.actorApiEnd;
       this.actorArray = [];
-      axios.get(this.apiTest)
+      axios.get(this.actorApi)
       .then(response => {
         
         for (let i = 0; i < 5; i++) {
           this.actorArray.push(response.data.cast[i].name);
-          // return response.data.cast[i].name
         }
+         // [PRINT cerca in template (commenti) 'lista attori']
         return this.actorArray;
       })
     }
