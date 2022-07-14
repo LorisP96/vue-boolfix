@@ -15,16 +15,14 @@
           <!-- recensioni -->
           <div class="vote">
             <span class="gold" v-for="star, index in fixStar(card.vote_average)" :key="'c' + index"><i class="fa-solid fa-star"></i></span>
-            <span v-for="star, index in (5 - fixStar(card.vote_average))" :key="'d' + index"><i class="fa-regular fa-star"></i></span>
+            <span v-for="index in (5 - fixStar(card.vote_average))" :key="'d' + index"><i class="fa-regular fa-star"></i></span>
             <div>numero di recensioni: {{card.vote_count}}</div>
           </div>
           <!-- descrizione film o serie -->
           <div class="original-text">{{card.overview}}</div>
           <div v-if="card.title !== card.original_title">{{card.original_title}}</div>
           <!-- lista attori -->
-          <div v-if="actorArray.length === 5">
-            <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
-          </div>
+          <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
         </div>
         <!-- poster -->
         <img v-if="card.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
@@ -54,9 +52,7 @@
           <div class="original-text">{{cardtv.overview}}</div>
           <div v-if="cardtv.name !== cardtv.original_name">{{cardtv.original_name}}</div>
           <!-- lista attori -->
-          <div v-if="actorArray.length === 5">
-            <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
-          </div>
+          <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
         </div>
         <!-- poster -->
         <img v-if="cardtv.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + cardtv.poster_path" :alt="cardtv.name">
@@ -113,11 +109,19 @@ export default {
       this.actorArray = [];
       axios.get(this.actorApi)
       .then(response => {
-        
-        for (let i = 0; i < 5; i++) {
-          this.actorArray.push(response.data.cast[i].name);
+
+        if(response.data.cast.length >= 5 ) {
+          for (let i = 0; i < 5; i++) {
+          
+            this.actorArray.push(response.data.cast[i].name);
+          }
+        } else if (response.data.cast.length <= 4){
+          for (let i = 0; i < response.data.cast.length; i++) {
+          
+            this.actorArray.push(response.data.cast[i].name);
+          }
         }
-         // [PRINT cerca in template (commenti) 'lista attori']
+        // [PRINT cerca in template (commenti) 'lista attori']
         return this.actorArray;
       })
     }
@@ -128,7 +132,7 @@ export default {
 
 <style lang="scss" scoped>
 main {
-  height: calc(100vh - 70px);
+  margin-top: 70px;
   .categories {
     color: white;
     padding: 15px 40px;
@@ -136,14 +140,14 @@ main {
   }
   .card-container {
     display: flex;
-    width: calc(100% - 80px);
+    width: calc(100% - 70px);
     margin: 0 auto;
-    height: calc(50% - 67px);
+    height: calc(100vh - 132px);
     overflow-x: auto;
-    margin-bottom: 5px;
 
     /* total width */
     &::-webkit-scrollbar {
+      top: -20px;
       background-color: #434343;
       width: 16px;
       height: 8px;
@@ -167,7 +171,8 @@ main {
 
     .card {
       aspect-ratio: 2/3;
-      margin: 7px;
+      padding: 5px;
+      margin: 60px 0;
       position: relative;
       flex-shrink: 0;
 
