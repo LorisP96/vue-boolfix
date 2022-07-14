@@ -52,8 +52,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import url(./assets/scss/style.scss);
+@import './assets/scss/style.scss';
+@import './assets/scss/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;700&family=Montserrat:wght@300;400;700&family=Nunito+Sans:wght@300;600&family=Open+Sans:wght@500;700&family=PT+Sans:wght@400;700&family=Raleway&family=Rock+Salt&family=WindSong:wght@400;500&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
 }
 </style>

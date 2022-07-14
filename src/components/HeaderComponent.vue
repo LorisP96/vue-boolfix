@@ -22,9 +22,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/variables.scss';
 header {
   height: 70px;
-  background-color: #0c0c0c;
+  background-color: $header-color;
   position: fixed;
   top: 0;
   left: 0;
@@ -42,22 +43,34 @@ header {
       height: 50%;
       margin-right: 20px;
       input {
-        height: 100%;
+        height: 80%;
         margin-right: 20px;
-        background-color: black;
-        border: 2px solid red;
-        border-radius: 20px;
-        color: white;
+        background-color: $header-color;
+        border: 2px solid $logo-color;
+        border-radius: 8px;
+        color: $text-color;
         padding: 0 10px;
       }
       button {
         width: 100px;
         height: 100%;
-        background-color: black;
-        color: white;
+        background-color: $header-color;
+        color: $text-color;
         font-size: 18px;
-        border: 2px solid red;
-        border-radius: 20px;
+        border: 2px solid $logo-color;
+        border-radius: 8px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $logo-color;
+          border: 2px solid $text-color;
+        }
+        
+        &:active {
+          color: $header-color;
+          transform: scale(1.1);
+        }
       }
     }
   }

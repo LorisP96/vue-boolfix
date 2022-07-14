@@ -136,7 +136,7 @@ export default {
         return this.actorArray;
       })
     },
-
+    // stesso procedimento per le serie tv
     getTvActorArray(tvid) {
       this.actorTvApi = this.actorTvApiStart + tvid + this.actorApiEnd;
       this.actorTvArray = [];
@@ -166,23 +166,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/variables.scss';
 main {
-  margin-top: 70px;
+  margin-block: 70px;
   .categories {
-    color: white;
-    padding: 15px 40px;
-    font-size: 28px;
+    color: $text-color;
+    padding-top: 60px;
+    padding-inline: 40px;
+    font-size: 32px;
   }
   .card-container {
     display: flex;
     width: calc(100% - 70px);
     margin: 0 auto;
-    height: calc(100vh - 132px);
     overflow-x: auto;
 
     /* total width */
     &::-webkit-scrollbar {
-      top: -20px;
       background-color: #434343;
       width: 16px;
       height: 8px;
@@ -205,9 +205,9 @@ main {
     }
 
     .card {
-      aspect-ratio: 2/3;
+      width: calc(100% / 5);
       padding: 5px;
-      margin: 60px 0;
+      margin: 30px 0;
       position: relative;
       flex-shrink: 0;
 
@@ -220,7 +220,7 @@ main {
       }
 
       .info-card {
-        color: white;
+        color: $text-color;
         position: absolute;
         top: 0;
         right: 0;
@@ -262,7 +262,7 @@ main {
         }
 
         img {
-          width: 25px;
+          width: 30px;
           aspect-ratio: 1/1;
           border-radius: 50%;
           height: auto;
