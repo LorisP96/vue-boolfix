@@ -228,32 +228,34 @@ main {
         bottom: 0;
         opacity: 0;
         padding: 20px 30px;
-        overflow-y: auto;
         border-radius: 6px;
-
-        &::-webkit-scrollbar {
-          background-color: #434343;
-          width: 5px;
-          height: 5px;
-        }
-
-        &::-webkit-scrollbar-track {
-          background-color:#2e2e2e81;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background-color: #babac0;
-          border-radius: 16px;
-        }
-
-        &::-webkit-scrollbar-button {
-          display:none;
-        }
+        display: flex;
+        flex-direction: column;
 
         .overview-text {
           font-size: 17px;
           margin: 10px 0;
           line-height: 25px;
+          overflow-y: auto;
+
+          &::-webkit-scrollbar {
+          background-color: #434343;
+          width: 5px;
+          height: 5px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background-color:#2e2e2e81;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: #babac0;
+            border-radius: 16px;
+          }
+
+          &::-webkit-scrollbar-button {
+            display:none;
+          }
         }
 
         .original {
