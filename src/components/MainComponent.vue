@@ -3,22 +3,29 @@
 
     <h2 class="categories">Film</h2>
     <div class="card-container">
-      
+      <!-- CARD -->
       <div class="card" v-for="card, index in arrayFilmResult" :key="'a' + index">
-        <div class="info-card">
+        <!-- elementi in hover di ogni singola card -->
+        <div class="info-card" @mouseenter="getApitest(card.id)">
+          <!-- titolo -->
           <h3>{{card.title}}</h3>
+          <!-- lingua -->
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(card.original_language)" alt="">
+          <!-- recensioni -->
           <div class="vote">
             <span class="gold" v-for="star, index in fixStar(card.vote_average)" :key="'c' + index"><i class="fa-solid fa-star"></i></span>
             <span v-for="star, index in (5 - fixStar(card.vote_average))" :key="'d' + index"><i class="fa-regular fa-star"></i></span>
             <div>numero di recensioni: {{card.vote_count}}</div>
           </div>
+          <!-- descrizione film o serie -->
           <div class="original-text">{{card.overview}}</div>
           <div v-if="card.title !== card.original_title">{{card.original_title}}</div>
-          <!-- <div v-if="actorArray.length === 5">
-            <div v-for="element, index in getApitest(card.id)" :key="'d' + index">{{element}}</div>
-          </div> -->
+          <!-- lista attori -->
+          <div v-if="actorArray.length === 5">
+            <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
+          </div>
         </div>
+        <!-- poster -->
         <img v-if="card.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
         <img v-else src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOvaNmJGJ0BCxEpCqAVKnhVAE8T6IPNODaw&usqp=CAU" :alt="card.title">
       </div>
@@ -26,19 +33,29 @@
 
     <h2 class="categories">Serie TV</h2>
     <div class="card-container">
-      
+      <!-- CARD -->
       <div class="card" v-for="cardtv, index in arrayTvResult" :key="'b' + index"> 
+        <!-- elementi in hover di ogni singola card -->
         <div class="info-card">
+          <!-- titolo -->
           <h3>{{cardtv.name}}</h3>
+          <!-- lingua -->
           <img :src="'https://countryflagsapi.com/svg/' + fixFlag(cardtv.original_language)" alt="">
+          <!-- recensioni -->
           <div class="vote">
             <span class="gold" v-for="index in fixStar(cardtv.vote_average)" :key="'c' + index"><i class="fa-solid fa-star"></i></span>
             <span v-for="index in (5 - fixStar(cardtv.vote_average))" :key="'d' + index"><i class="fa-regular fa-star"></i></span>
             <div>numero di recensioni: {{cardtv.vote_count}}</div>
           </div>
+          <!-- descrizione film o serie -->
           <div class="original-text">{{cardtv.overview}}</div>
           <div v-if="cardtv.name !== cardtv.original_name">{{cardtv.original_name}}</div>
+          <!-- lista attori -->
+          <div v-if="actorArray.length === 5">
+            <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
+          </div>
         </div>
+        <!-- poster -->
         <img v-if="cardtv.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + cardtv.poster_path" :alt="cardtv.name">
         <img v-else src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOvaNmJGJ0BCxEpCqAVKnhVAE8T6IPNODaw&usqp=CAU" :alt="cardtv.name">
       </div>
@@ -47,7 +64,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'MainComponent',
@@ -81,23 +98,25 @@ export default {
         return flag = "ch";       
       } return flag
     },
+
     fixStar(star) {
       return Math.round(star / 2);
     },
-    // getApitest(elementid) {
-    //   this.apiTest = this.test1 + elementid + this.test2;
-    //   this.actorArray = [];
-    //   axios.get(this.apiTest)
-    //   .then(response => {
-        
-    //     for (let i = 0; i < 5; i++) {
-    //       this.actorArray.push(response.data.cast[i].name);
-    //     }
-    //     return this.actorArray
-    //   })
-    // }
-  },
 
+    getApitest(elementid) {
+      this.apiTest = this.test1 + elementid + this.test2;
+      this.actorArray = [];
+      axios.get(this.apiTest)
+      .then(response => {
+        
+        for (let i = 0; i < 5; i++) {
+          this.actorArray.push(response.data.cast[i].name);
+          // return response.data.cast[i].name
+        }
+        return this.actorArray;
+      })
+    }
+  }
 }
 
 </script>
