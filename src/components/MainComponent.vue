@@ -19,10 +19,13 @@
             <div>numero di recensioni: {{card.vote_count}}</div>
           </div>
           <!-- descrizione film o serie -->
-          <div class="original-text">{{card.overview}}</div>
-          <div v-if="card.title !== card.original_title">{{card.original_title}}</div>
+          <div class="overview-text">{{card.overview}}</div>
+          <div v-if="card.title !== card.original_title" class="original">{{card.original_title}}</div>
           <!-- lista attori -->
-          <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
+          <div v-if="actorArray.length !== 0" class="actors-list">
+            <span v-for="element, index in actorArray" :key="'e' + index">{{element}}, </span>
+            <span> ecc...</span>
+          </div>
         </div>
         <!-- poster -->
         <img v-if="card.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + card.poster_path" :alt="card.title">
@@ -37,7 +40,7 @@
       <!-- CARD -->
       <div class="card" v-for="cardtv, index in arrayTvResult" :key="'b' + index"> 
         <!-- elementi in hover di ogni singola card -->
-        <div class="info-card">
+        <div class="info-card" @mouseenter="getTvActorArray(cardtv.id)">
           <!-- titolo -->
           <h3>{{cardtv.name}}</h3>
           <!-- lingua -->
@@ -49,10 +52,13 @@
             <div>numero di recensioni: {{cardtv.vote_count}}</div>
           </div>
           <!-- descrizione film o serie -->
-          <div class="original-text">{{cardtv.overview}}</div>
-          <div v-if="cardtv.name !== cardtv.original_name">{{cardtv.original_name}}</div>
+          <div class="overview-text">{{cardtv.overview}}</div>
+          <div v-if="cardtv.name !== cardtv.original_name" class="original">{{cardtv.original_name}}</div>
           <!-- lista attori -->
-          <div v-for="element, index in actorArray" :key="'d' + index">{{element}}</div>
+          <div v-if="actorTvArray.length !== 0" class="actors-list">
+            <span v-for="element, index in actorTvArray" :key="'e' + index">{{element}}, </span>
+            <span> ecc...</span>
+          </div>
         </div>
         <!-- poster -->
         <img v-if="cardtv.poster_path !== null" :src="'https://image.tmdb.org/t/p/w342' + cardtv.poster_path" :alt="cardtv.name">
@@ -74,9 +80,12 @@ export default {
   data() {
     return {
       actorApiStart: 'https://api.themoviedb.org/3/movie/',
+      actorTvApiStart: 'https://api.themoviedb.org/3/tv/',
       actorApiEnd: '/credits?api_key=cd6f03323d12eed84d94ab2ac42d791e&language=it-IT',
       actorApi: '',
+      actorTvApi: '',
       actorArray: [],
+      actorTvArray: [],
     }
   },
   methods: {
@@ -125,6 +134,30 @@ export default {
         }
         // [PRINT cerca in template (commenti) 'lista attori']
         return this.actorArray;
+      })
+    },
+
+    getTvActorArray(tvid) {
+      this.actorTvApi = this.actorTvApiStart + tvid + this.actorApiEnd;
+      this.actorTvArray = [];
+      axios.get(this.actorTvApi)
+      .then(response => {
+
+        if(response.data.cast.length >= 5 ) {
+          for (let i = 0; i < 5; i++) {
+          
+            this.actorTvArray.push(response.data.cast[i].name);
+          }
+        } else if (response.data.cast.length <= 4){
+          for (let i = 0; i < response.data.cast.length; i++) {
+          
+            this.actorTvArray.push(response.data.cast[i].name);
+          }
+        } else {
+          this.actorTvArray.push('cast empty')
+        }
+        // [PRINT cerca in template (commenti) 'lista attori']
+        return this.actorTvArray;
       })
     }
   }
@@ -183,6 +216,7 @@ main {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 6px;
       }
 
       .info-card {
@@ -195,6 +229,7 @@ main {
         opacity: 0;
         padding: 20px 30px;
         overflow-y: auto;
+        border-radius: 6px;
 
         &::-webkit-scrollbar {
           background-color: #434343;
@@ -215,8 +250,14 @@ main {
           display:none;
         }
 
-        .original-text {
-          font-size: 14px;
+        .overview-text {
+          font-size: 17px;
+          margin: 10px 0;
+          line-height: 25px;
+        }
+
+        .original {
+          font-size: 18px;
           margin: 10px 0;
         }
 
@@ -244,6 +285,12 @@ main {
           span {
             font-size: 16px;
           }
+        }
+
+        .actors-list {
+          margin-top: 10px;
+          line-height: 22px;
+          font-style: italic;
         }
       }
       &:hover .info-card {
