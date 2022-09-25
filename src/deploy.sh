@@ -12,6 +12,6 @@ git add .
 
 git commit -m "New Deploy"
 
-git push -f https://github.com/macs-massimopiazza/simie-66.git master:gh-pages
+git push -f https://github.com/LorisP96/vue-boolflix.git master:gh-pages
 
 cd ..
