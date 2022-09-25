@@ -1,7 +1,7 @@
 <template>
   <main>
     <!-- FILM -->
-    <h2 class="categories" v-if="arrayResult.length !== 0">Film</h2>
+    <h2 class="categories" v-if="arrayFilmResult.length !== 0">Film</h2>
 
     <div class="card-container">
       <!-- CARD -->
